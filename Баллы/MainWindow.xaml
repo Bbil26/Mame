@@ -35,7 +35,7 @@
         <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Margin="10"
                     VerticalAlignment="Center" HorizontalAlignment="Right">
             <TextBlock Text="Год: " FontSize="15"/>
-            <TextBox x:Name="TB_Year" FontSize="14" Height="25" VerticalAlignment="Center" Width="75" MaxLines="1" MaxLength="4"/>
+            <TextBox x:Name="TB_Year" FontSize="14" Height="25" VerticalAlignment="Center" Width="75" MaxLines="1" MaxLength="4" TextChanged="TB_Year_TextInput"/>
         </StackPanel>
 
         <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
@@ -53,6 +53,6 @@
             <Button Content="Загрузить список" FontSize="14"  Width="150" Height="27" Margin="5" Click="Load_List"/>
             <Button Content="Сохранить список" FontSize="14" Width="150" Height="27"  Margin="5" Click="Save_List"/>
         </StackPanel>
-        <Button Content="Создать отчет" FontSize="14" Grid.Column="0" Grid.Row="4" Width="150" Height="27"/>
+        <Button Content="Создать отчет" FontSize="14" Grid.Column="0" Grid.Row="4" Width="150" Height="27" Click="Button_Click"/>
     </Grid>
 </Window>

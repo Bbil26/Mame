@@ -1,6 +1,8 @@
-﻿using System;
+﻿using otchet;
+using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using Логика;
 
 namespace Баллы
@@ -14,14 +16,12 @@ namespace Баллы
         public MainWindow()
         {
             InitializeComponent();
-            
-            //Create create = new Create();
-            
+
             listPeoples = new ListPeoples(1);
             ListP.DataContext = listPeoples;
             TB_Year.Text = DateTime.Now.Year.ToString();
         }
-        int curYear;
+
         private void Otpusk(object sender, RoutedEventArgs e)
         {
             if(ListP.SelectedIndex != -1)
@@ -71,13 +71,30 @@ namespace Баллы
         private void Delete(object sender, RoutedEventArgs e)
         {
             if (ListP.SelectedItem != null)
-                listPeoples.DeleteItem((TeloPeople)ListP.SelectedItem);
+                if (
+                    MessageBox.Show("Вы действительно хотетите удалить запись?", "Внимание!",
+                    MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
+                        listPeoples.DeleteItem((TeloPeople)ListP.SelectedItem);
         }
 
         private void Load_List(object sender, RoutedEventArgs e)
         {
-            listPeoples = new ListPeoples();
-            ListP.DataContext = listPeoples;
+            if (ListP.Items.Count > 0)
+            {   
+                if(
+                MessageBox.Show("Список непустой. Данная процедура \nбезвозвратно очистит текущий список.\n" +
+                "Вы действительно хотите продолжить?", "Внимание!",
+                    MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK
+                ) 
+                    listPeoples = new ListPeoples();
+                    ListP.DataContext = listPeoples;
+            }
+            else
+            {
+                listPeoples = new ListPeoples();
+                ListP.DataContext = listPeoples;
+            }
+            
         }
 
         private void Save_List(object sender, RoutedEventArgs e)
@@ -89,6 +106,22 @@ namespace Баллы
         private void ListP_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             curChoice = (TeloPeople)((ListBox)sender).SelectedItem;
+        }
+        
+        public static int curYear;
+        private void TB_Year_TextInput(object sender, TextChangedEventArgs e)
+        {
+            if(int.TryParse(TB_Year.Text, out curYear))
+                TB_Year.Foreground = Brushes.Black;
+            else 
+                TB_Year.Foreground = Brushes.Red;
+        }
+
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            
+            Create create = new Create(listPeoples._telopeople);
         }
     }
 }

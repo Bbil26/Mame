@@ -21,7 +21,7 @@
 
         <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="30,0,0,0" >
             <TextBlock Text="Причина отсутствия" VerticalAlignment="Center" FontSize="15"/>
-            <ComboBox  Width="350" Height="25" 
+            <ComboBox  Width="350" Height="25" Name ="CB_Why"
                   HorizontalAlignment="Left" Margin="30,0,0,0">
                 <ComboBoxItem Content="б/л"/>
                 <ComboBoxItem Content="Отпуск"/>
@@ -33,14 +33,15 @@
 
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="30,0,0,0">
             <TextBlock Text="С (числа)" VerticalAlignment="Center" FontSize="15"/>
-            <TextBox x:Name="TB_Start" MaxLines="1" MaxLength="5" Text="01.01" Foreground="Gray" FontSize="14"
+            <TextBox x:Name="TB_Start" MaxLines="1" MaxLength="5" Text="01.01" Foreground="DarkGray" FontSize="14"
                      Width="75" Height="27" VerticalAlignment="Center" Margin="15,0,0,0" TextChanged="TB_TextInput" PreviewTextInput="TB_PreviewTextInput"/>
 
 
             <TextBlock Text="До (числа)" VerticalAlignment="Center" FontSize="15" Margin="40,0,0,0"/>
-            <TextBox x:Name="TB_Finish" MaxLines="1" MaxLength="5" Text="01.01" Foreground="Gray" FontSize="14"
-                      Width="75" Height="27" VerticalAlignment="Center" Margin="15,0,0,0" PreviewTextInput="TB_PreviewTextInput"/>
-            
+            <TextBox x:Name="TB_Finish" MaxLines="1" MaxLength="5" Text="01.01" Foreground="DarkGray" FontSize="14"
+                      Width="75" Height="27" VerticalAlignment="Center" Margin="15,0,0,0" TextChanged="TB_TextInput" PreviewTextInput="TB_PreviewTextInput"/>
+
+            <CheckBox Content="До конца года" FontSize="15" Name="chk_box" Margin="30,0,0,0" VerticalAlignment="Center"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -53,7 +54,7 @@
             
         </ListBox>
 
-        <Button  Grid.Column="1" Grid.Row="4" Content="Сохранить" 
+        <Button  Grid.Column="1" Grid.Row="4" Content="Назад" Click="Btn_Back"
                 Width="150" Height="30" FontSize="15" HorizontalAlignment="Right" Margin="0,0,30,0"/>
     </Grid>
 </Window>
