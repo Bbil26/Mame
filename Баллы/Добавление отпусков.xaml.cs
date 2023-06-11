@@ -64,8 +64,8 @@ namespace Баллы
                 (
                     (month == 4 || month == 6 ||
                     month == 9 || month == 11) && day > 30
-                ) ||
-                (month == 2 && MainWindow.)
+                ) //||s
+                //(month == 2 && MainWindow.)
 
                 ) ((TextBox)sender).Foreground = Brushes.Red;
             else ((TextBox)sender).Foreground = Brushes.Black;
