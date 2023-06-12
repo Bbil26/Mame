@@ -222,7 +222,7 @@ namespace Логика
             sw.Close();
 
             i++;
-            if (i == 11) i = 1;
+            if (i == 16) i = 1;
         }
 
 
