@@ -12,7 +12,7 @@ namespace Баллы
         public Профиль()
         {
             InitializeComponent();
-            
+
 
             if (MainWindow.flagChangeProfile == 1)
             {

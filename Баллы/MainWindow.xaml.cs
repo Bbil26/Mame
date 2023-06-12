@@ -26,10 +26,12 @@ namespace Баллы
 
         private void Otpusk(object sender, RoutedEventArgs e)
         {
-            if(ListP.SelectedIndex != -1)
+            if (ListP.SelectedIndex != -1)
             {
                 Добавление_отпусков dlg = new Добавление_отпусков();
                 dlg.ShowDialog();
+
+                listPeoples.AutoSave();
             }
         }
 
@@ -38,13 +40,15 @@ namespace Баллы
             Профиль prof = new Профиль();
             prof.ShowDialog();
 
-            if(prof.DialogResult == true)
+            if (prof.DialogResult == true)
             {
                 string name, job, oklad;
                 name = Профиль.n;
                 job = Профиль.j;
                 oklad = Профиль.o;
                 listPeoples.AddItem(name, job, oklad);
+
+                listPeoples.AutoSave();
             }
         }
 
@@ -65,6 +69,8 @@ namespace Баллы
                     ((TeloPeople)ListP.SelectedItem)._Job = Профиль.j;
                     ((TeloPeople)ListP.SelectedItem)._Oklad = Профиль.o;
                     ((TeloPeople)ListP.SelectedItem).VisualList = Профиль.n;
+
+                    listPeoples.AutoSave();
                 }
                 flagChangeProfile = 0;
             }
@@ -76,50 +82,56 @@ namespace Баллы
                 if (
                     MessageBox.Show("Вы действительно хотетите удалить запись?", "Внимание!",
                     MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
-                        listPeoples.DeleteItem((TeloPeople)ListP.SelectedItem);
+                {
+                    listPeoples.AutoSave(); // Сохранение до удаления
+                    listPeoples.DeleteItem((TeloPeople)ListP.SelectedItem);
+                    listPeoples.AutoSave(); // Сохранения после удаления
+                }
         }
 
         private void Load_List(object sender, RoutedEventArgs e)
         {
             if (ListP.Items.Count > 0)
-            {   
-                if(
+            {
+                if (
                 MessageBox.Show("Список непустой. Данная процедура \nбезвозвратно очистит текущий список.\n" +
                 "Вы действительно хотите продолжить?", "Внимание!",
                     MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK
-                ) 
+                )
+                {
                     listPeoples = new ListPeoples();
                     ListP.DataContext = listPeoples;
+                }       
             }
             else
             {
                 listPeoples = new ListPeoples();
                 ListP.DataContext = listPeoples;
             }
-            
+
         }
 
         private void Save_List(object sender, RoutedEventArgs e)
         {
             if (listPeoples != null)
-            listPeoples.OutputToFile();
+                listPeoples.OutputToFile();
         }
 
         private void ListP_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             curChoice = (TeloPeople)((ListBox)sender).SelectedItem;
         }
-        
+
         public static int curYear;
         private void TB_Year_TextInput(object sender, TextChangedEventArgs e)
         {
-            if(int.TryParse(TB_Year.Text, out curYear))
+            if (int.TryParse(TB_Year.Text, out curYear))
             {
                 SolidColorBrush brush = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#fafafa"));
                 TB_Year.Foreground = brush;
             }
-               
-            else 
+
+            else
                 TB_Year.Foreground = Brushes.Red;
         }
 
@@ -128,9 +140,13 @@ namespace Баллы
         {
             if (RB_6.IsChecked == true) RB_Detector = 6;
             else if (RB_9.IsChecked == true) RB_Detector = 9;
-            else RB_Detector= 12;
+            else RB_Detector = 12;
 
-            Create create = new Create(listPeoples._telopeople, RB_Detector);
+            try
+            {
+                Create create = new Create(listPeoples._telopeople, RB_Detector);
+            }
+            catch { }
         }
 
     }

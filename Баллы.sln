@@ -17,6 +17,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Загрузка_Выгру
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "otchet", "otchet\otchet.csproj", "{853922AD-9B46-4D49-8BED-E4287816447D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решения", "Элементы решения", "{1324A26D-9B23-49CB-B6EA-3CCBF7E8F70C}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\icon.ico = ..\..\..\icon.ico
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
