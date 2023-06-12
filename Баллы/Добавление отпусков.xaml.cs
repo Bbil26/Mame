@@ -119,9 +119,17 @@ namespace Баллы
                     countDays += temp;
                 }
 
+                line = "";
 
-                line = $"{CB_Why.Text} с {TB_Start.Text}.{MainWindow.curYear} по" +
+                if (chk_box.IsChecked == true)
+                {
+                    line = $"{CB_Why.Text} с {TB_Start.Text}.{MainWindow.curYear} по" +
                     $" {f_day}.{f_month}.{MainWindow.curYear} - {countDays} дней";
+                }
+                else
+                    line = $"{CB_Why.Text} с {TB_Start.Text}.{MainWindow.curYear} по" +
+                    $" {TB_Finish.Text}.{MainWindow.curYear} - {countDays} дней";
+
                 MainWindow.curChoice._Otpusk.Add(line);
                 Console.WriteLine(MainWindow.curChoice._Jan);
             }

@@ -88,8 +88,10 @@ namespace Баллы
                 "Вы действительно хотите продолжить?", "Внимание!",
                     MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK
                 )
+                {
                     listPeoples = new ListPeoples();
-                ListP.DataContext = listPeoples;
+                    ListP.DataContext = listPeoples;
+                }       
             }
             else
             {

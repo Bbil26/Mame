@@ -94,13 +94,14 @@ namespace otchet
             }
 
             int xTemp = 3;
-            string lineOtpusk = "";
+            string lineOtpusk;
             double sumScore;
 
             if (countOtchet == 6)
             {
                 foreach (var item in listPeoples)
                 {
+                    lineOtpusk = "";
                     foreach (var i in item._Otpusk)
                         lineOtpusk += i + "\t";
 
@@ -127,6 +128,7 @@ namespace otchet
             {
                 foreach (var item in listPeoples)
                 {
+                    lineOtpusk = "";
                     foreach (var i in item._Otpusk)
                         lineOtpusk += i + "\t";
 
@@ -156,6 +158,7 @@ namespace otchet
             {
                 foreach (var item in listPeoples)
                 {
+                    lineOtpusk = "";
                     foreach (var i in item._Otpusk)
                         lineOtpusk += i + "\t";
 
