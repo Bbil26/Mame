@@ -132,7 +132,11 @@ namespace Баллы
             else if (RB_9.IsChecked == true) RB_Detector = 9;
             else RB_Detector = 12;
 
-            Create create = new Create(listPeoples._telopeople, RB_Detector);
+            try
+            {
+                Create create = new Create(listPeoples._telopeople, RB_Detector);
+            }
+            catch { }
         }
 
     }
