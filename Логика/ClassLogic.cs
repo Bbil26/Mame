@@ -1,16 +1,16 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
-using System.IO;
-using Загрузка__Выгруз;
-using Microsoft.Win32;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.IO;
+using System.Runtime.CompilerServices;
 using System.Text;
+using Загрузка__Выгруз;
 
 namespace Логика
 {
-    
+
     public class TeloPeople : INotifyPropertyChanged
     {
         private People _people;
@@ -52,14 +52,14 @@ namespace Логика
 
         public double _Feb
         {
-            get { return _people.Febp;}
-            set { _people.Febp = value;}
+            get { return _people.Febp; }
+            set { _people.Febp = value; }
         }
 
         public double _Mar
         {
             get { return _people.Marp; }
-            set { _people.Marp = value;}
+            set { _people.Marp = value; }
         }
 
         public double _Apr
@@ -128,7 +128,7 @@ namespace Логика
     {
 
         public ObservableCollection<TeloPeople> _telopeople = new ObservableCollection<TeloPeople> { };
-        
+
         public ListPeoples()
         {
             List<People> tmp = ClassInput.getData();
@@ -138,7 +138,7 @@ namespace Логика
                     _telopeople.Add(new TeloPeople(t));
             }
         }
-        public ListPeoples(int flag){ }
+        public ListPeoples(int flag) { }
 
         public ObservableCollection<TeloPeople> VisListPeople
         {
@@ -148,18 +148,24 @@ namespace Логика
         public void AddItem(string n = "", string j = "", string o = "")
         {
             _telopeople.Add(new TeloPeople(new People()
-                {
+            {
                 _Namep = n,
                 _Jobp = j,
                 _Okladp = o,
-                Janp = 0,  Julyp= 0,
-                Febp= 0,   Augp= 0,
-                Marp= 0,   Sepp= 0,
-                Aprp= 0,   Oktp= 0,
-                Mayp = 0,  Novp= 0,
-                Junep = 0, Decp= 0,
+                Janp = 0,
+                Julyp = 0,
+                Febp = 0,
+                Augp = 0,
+                Marp = 0,
+                Sepp = 0,
+                Aprp = 0,
+                Oktp = 0,
+                Mayp = 0,
+                Novp = 0,
+                Junep = 0,
+                Decp = 0,
                 _Otpuskp = new ObservableCollection<string>()
-        }));
+            }));
         }
         public void DeleteItem(TeloPeople tp)
         {
@@ -174,7 +180,7 @@ namespace Логика
             dlg.Title = "Сохранение файла";
 
             if (dlg.ShowDialog() == true)
-            { 
+            {
                 StreamWriter sw = new StreamWriter(dlg.FileName, false, Encoding.UTF8);
                 foreach (var p in _telopeople)
                 {

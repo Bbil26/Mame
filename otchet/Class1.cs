@@ -1,7 +1,7 @@
-﻿using Excel = Microsoft.Office.Interop.Excel;
-using System;
-using Логика;
+﻿using System;
 using System.Collections.ObjectModel;
+using Логика;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace otchet
 {
@@ -18,7 +18,7 @@ namespace otchet
 
             Excel.Workbook workbook = app.Workbooks.Add(Type.Missing);
 
-            app.DisplayAlerts= false;
+            app.DisplayAlerts = false;
 
             Excel.Worksheet sheet = (Excel.Worksheet)app.Worksheets.get_Item(1);
 
@@ -53,7 +53,7 @@ namespace otchet
             Excel.Range range = sheet.get_Range("E1", "P1");
             range.Merge(Type.Missing);
             range.Value = "Колличество баллов";
-            
+
 
             sheet.get_Range("Q1", "Q2").Merge(Type.Missing);
             sheet.get_Range("Q1", "Q2").Value2 = "Итого баллов";
@@ -69,12 +69,12 @@ namespace otchet
             headRange.Orientation = 90;
             headRange.Font.Name = "Times New Roman";
             headRange.Font.Size = 12;
-            headRange.WrapText= true;
+            headRange.WrapText = true;
             headRange.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
             headRange.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
 
             range.Orientation = 0;
-            
+
             //расширение ячеек
             sheet.Rows[1].RowHeight = 17;
             sheet.Rows[2].RowHeight = 80;
@@ -90,13 +90,13 @@ namespace otchet
 
             for (int i = 0; i < count; i++)
             {
-                sheet.Cells[i+3, 1].Value = i + 1;
+                sheet.Cells[i + 3, 1].Value = i + 1;
             }
 
             int xTemp = 3;
             string lineOtpusk = "";
             double sumScore;
-            
+
             if (countOtchet == 6)
             {
                 foreach (var item in listPeoples)
@@ -122,8 +122,8 @@ namespace otchet
                     xTemp++;
                 }
             }
-            
-            else if(countOtchet == 9 )
+
+            else if (countOtchet == 9)
             {
                 foreach (var item in listPeoples)
                 {
@@ -151,7 +151,7 @@ namespace otchet
                     xTemp++;
                 }
             }
-            
+
             else
             {
                 foreach (var item in listPeoples)
@@ -183,9 +183,9 @@ namespace otchet
                     xTemp++;
                 }
             }
-            
-            
-            if(count> 0)
+
+
+            if (count > 0)
             {
                 Excel.Range bodyRange = sheet.get_Range("A3", $"S{count + 2}");
                 Excel.Range subBodyRange = sheet.get_Range("C3", $"C{count + 2}");
@@ -201,10 +201,10 @@ namespace otchet
                 headRange.Borders.Weight = Excel.XlBorderWeight.xlThin;
                 bodyRange.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
                 bodyRange.Borders.Weight = Excel.XlBorderWeight.xlThin;
-            } 
+            }
 
 
         }
     }
-   
+
 }

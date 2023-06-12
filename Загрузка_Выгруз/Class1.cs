@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
-using System.IO;
-using Microsoft.Win32;
 using System.Collections.ObjectModel;
+using System.IO;
 
 namespace Загрузка__Выгруз
 {
@@ -26,7 +26,7 @@ namespace Загрузка__Выгруз
         public double Decp { get; set; }
 
     }
-        public class ClassInput
+    public class ClassInput
     {
         public static List<People> getData()
         {
@@ -51,7 +51,7 @@ namespace Загрузка__Выгруз
                         june = 0, july = 0, aug = 0, sep = 0, okt = 0,
                         nov = 0, dec = 0;
 
-                    foreach(string i in line.Split(';'))
+                    foreach (string i in line.Split(';'))
                     {
                         subline = i.Split('=');
                         if (subline[0] == "Name")
@@ -87,32 +87,38 @@ namespace Загрузка__Выгруз
                         else if (subline[0] == "Otpusk")
                             temp = subline[1].Trim('"');
                     }
-                    
-                    foreach(var i in temp.Split('\t'))
+
+                    foreach (var i in temp.Split('\t'))
                         otpusk.Add(i);
-                    
+
                     otpusk.RemoveAt(otpusk.Count - 1);
 
                     data.Add(new People()
                     {
                         _Namep = name,
-                        _Jobp= job,
+                        _Jobp = job,
                         _Okladp = oklad,
-                        Janp = 50 - jan,     Julyp = 50 - july,
-                        Febp = 50 - feb,     Augp = 50 - aug,
-                        Marp = 50 - mar,     Sepp = 50 - sep,
-                        Aprp = 50 - apr,      Oktp = 50 - okt,
-                        Mayp = 50 - may,     Novp = 50 - nov,
-                        Junep = 50 - june,   Decp = 50 - dec,
+                        Janp = 50 - jan,
+                        Julyp = 50 - july,
+                        Febp = 50 - feb,
+                        Augp = 50 - aug,
+                        Marp = 50 - mar,
+                        Sepp = 50 - sep,
+                        Aprp = 50 - apr,
+                        Oktp = 50 - okt,
+                        Mayp = 50 - may,
+                        Novp = 50 - nov,
+                        Junep = 50 - june,
+                        Decp = 50 - dec,
                         _Otpuskp = otpusk,
-                    });;
+                    }); ;
                 }
                 return data;
             }
 
             return null;
         }
-        
+
     }
 
 }

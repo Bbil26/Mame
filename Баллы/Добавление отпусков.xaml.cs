@@ -17,7 +17,7 @@ namespace Баллы
         {
             InitializeComponent();
             DataContext = this;
-            
+
         }
 
         public ObservableCollection<string> Otpuski
@@ -100,7 +100,7 @@ namespace Баллы
                             monthDays = 29;
                         }
                     }
-                   
+
                     if (s_month == f_month)
                     {
                         temp = f_day - s_day + 1;
@@ -153,7 +153,7 @@ namespace Баллы
                     );
 
 
-                 for (int i = sMonth; i <= fMonth; i++)
+                for (int i = sMonth; i <= fMonth; i++)
                 {
                     if (i == 1 || i == 3 || i == 5 || i == 7 ||
                        i == 8 || i == 10 || i == 12)
@@ -194,7 +194,7 @@ namespace Баллы
                 MainWindow.curChoice._Otpusk.Remove((string)LB_Otsyt.SelectedItem);
                 Console.WriteLine(MainWindow.curChoice._Jan);
             }
-            
+
         }
 
         public static int day, month;
@@ -218,10 +218,10 @@ namespace Баллы
                     month == 9 || month == 11) && day > 30
                 ) ||
                 (month == 2 && MainWindow.curYear % 4 == 0 && day > 29) ||
-                (month == 2 && MainWindow.curYear % 4 != 0 && day > 28)) 
-                    ((TextBox)sender).Foreground = Brushes.Red;
+                (month == 2 && MainWindow.curYear % 4 != 0 && day > 28))
+                ((TextBox)sender).Foreground = Brushes.Red;
 
-            else if(((TextBox)sender).Text.ToCharArray().Length == 5)
+            else if (((TextBox)sender).Text.ToCharArray().Length == 5)
                 ((TextBox)sender).Foreground = Brushes.White;
             else ((TextBox)sender).Foreground = Brushes.LightGray;
 
@@ -240,9 +240,9 @@ namespace Баллы
                 ((TextBox)sender).Text = "";
                 ((TextBox)sender).Foreground = Brushes.LightGray;
             }
-            
+
             else if (!char.IsDigit(e.Text[0]))
-                e.Handled= true;
+                e.Handled = true;
 
             else if (((TextBox)sender).Text.ToCharArray().Length == 2)
             {
