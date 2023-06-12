@@ -1,18 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using Логика;
+
 
 namespace Баллы
 {
@@ -64,17 +56,14 @@ namespace Баллы
                     MainWindow.curChoice._Nov += score; break;
                 case 12:
                     MainWindow.curChoice._Dec += score; break;
-
             }
         }
 
         private void Btn_Add(object sender, RoutedEventArgs e)
         {
-            
-
             string line;
-            if (CB_Why.Text != "" && TB_Start.Foreground.Equals(Brushes.Black) &&
-                TB_Finish.Foreground.Equals(Brushes.Black))
+            if (CB_Why.Text != "" && TB_Start.Foreground.Equals(Brushes.White) &&
+                TB_Finish.Foreground.Equals(Brushes.White))
             {
                 int s_day, s_month, f_day, f_month, countDays = 0, temp = 0, monthDays = 0;
                 int.TryParse(TB_Start.Text.Split('.')[0], out s_day);
@@ -233,8 +222,8 @@ namespace Баллы
                     ((TextBox)sender).Foreground = Brushes.Red;
 
             else if(((TextBox)sender).Text.ToCharArray().Length == 5)
-                ((TextBox)sender).Foreground = Brushes.Black;
-            else ((TextBox)sender).Foreground = Brushes.Gray;
+                ((TextBox)sender).Foreground = Brushes.White;
+            else ((TextBox)sender).Foreground = Brushes.LightGray;
 
         }
 
@@ -246,10 +235,10 @@ namespace Баллы
         private void TB_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
 
-            if (((TextBox)sender).Foreground.Equals(Brushes.DarkGray))
+            if (((TextBox)sender).Foreground.Equals(Brushes.DarkKhaki))
             {
                 ((TextBox)sender).Text = "";
-                ((TextBox)sender).Foreground = Brushes.Gray;
+                ((TextBox)sender).Foreground = Brushes.LightGray;
             }
             
             else if (!char.IsDigit(e.Text[0]))
@@ -260,8 +249,6 @@ namespace Баллы
                 ((TextBox)sender).Text += ".";
                 ((TextBox)sender).SelectionStart = ((TextBox)sender).Text.ToCharArray().Length;
             }
-            
-
         }
 
     }

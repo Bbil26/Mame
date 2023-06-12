@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Логика;
+using Brushes = System.Windows.Media.Brushes;
 
 namespace Баллы
 {
@@ -13,6 +14,7 @@ namespace Баллы
     public partial class MainWindow : Window
     {
         ListPeoples listPeoples;
+        int RB_Detector;
         public MainWindow()
         {
             InitializeComponent();
@@ -112,7 +114,11 @@ namespace Баллы
         private void TB_Year_TextInput(object sender, TextChangedEventArgs e)
         {
             if(int.TryParse(TB_Year.Text, out curYear))
-                TB_Year.Foreground = Brushes.Black;
+            {
+                SolidColorBrush brush = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#fafafa"));
+                TB_Year.Foreground = brush;
+            }
+               
             else 
                 TB_Year.Foreground = Brushes.Red;
         }
@@ -120,8 +126,12 @@ namespace Баллы
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
-            Create create = new Create(listPeoples._telopeople);
+            if (RB_6.IsChecked == true) RB_Detector = 6;
+            else if (RB_9.IsChecked == true) RB_Detector = 9;
+            else RB_Detector= 12;
+
+            Create create = new Create(listPeoples._telopeople, RB_Detector);
         }
+
     }
 }
