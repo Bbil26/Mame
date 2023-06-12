@@ -169,6 +169,7 @@ namespace Логика
         public void OutputToFile()
         {
             SaveFileDialog dlg = new SaveFileDialog();
+            dlg.InitialDirectory = Environment.CurrentDirectory;
             dlg.Filter = "csv files (*.csv)|*.csv";
             dlg.Title = "Сохранение файла";
 
