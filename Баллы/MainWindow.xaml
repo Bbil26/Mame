@@ -5,13 +5,40 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Баллы"
         mc:Ignorable="d"
-        Title="Баллы" Height="420" Width="800">
+        Title="Баллы" Height="420" Width="800" 
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
+        Background="#2F2F2F"
+        Foreground="#fafafa">
+    
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#828282"/>
+            <Setter Property="Foreground" Value="#fafafa"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#a1a1e1"/>
+                    <Setter Property="Foreground" Value="#e8e8e8"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
             <RowDefinition Height="55"/>
             <RowDefinition Height="55"/>
+            <RowDefinition/>
             <RowDefinition Height="55"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -35,24 +62,35 @@
         <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Margin="10"
                     VerticalAlignment="Center" HorizontalAlignment="Right">
             <TextBlock Text="Год: " FontSize="15"/>
-            <TextBox x:Name="TB_Year" FontSize="14" Height="25" VerticalAlignment="Center" Width="75" MaxLines="1" MaxLength="4"/>
+            <TextBox x:Name="TB_Year" FontSize="14" Height="25" VerticalAlignment="Center" Width="75" 
+                     MaxLines="1" MaxLength="4" TextChanged="TB_Year_TextInput" Background="#616161"/>
         </StackPanel>
 
         <StackPanel Grid.Column="0" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="Создать" Width="120" Height="27" FontSize="14" Margin="5" Click="Create"/>
-            <Button Content="Изменить" Width="120" Height="27" FontSize="14" Margin="5" Click="Edit"/>
-            <Button Content="Удалить" Width="120" Height="27" FontSize="14" Margin="5" Click="Delete"/>
+            <Button Content="Создать" Width="120" Height="27" FontSize="14" Margin="5" Click="Create"  />
+            <Button Content="Изменить" Width="120" Height="27" FontSize="14" Margin="5" Click="Edit"  />
+            <Button Content="Удалить" Width="120" Height="27" FontSize="14" Margin="5" Click="Delete" />
         </StackPanel>
 
         <ListBox Grid.Column="1" Grid.Row="1" Grid.RowSpan="4" Name="ListP" Margin="10"
-                 DisplayMemberPath="VisualList" ItemsSource="{Binding VisListPeople}" SelectionChanged="ListP_SelectionChanged"/>
+                 DisplayMemberPath="VisualList" ItemsSource="{Binding VisListPeople}" SelectionChanged="ListP_SelectionChanged"
+                 Background="#3F3F43" Foreground="#fff"/>
 
 
-        <Button Content="Добавить отпуск" FontSize="14" Grid.Column="0" Grid.Row="2" Width="150" Height="27" Click="Otpusk"/>
+        <Button Content="Добавить отпуск" FontSize="14" Grid.Column="0" Grid.Row="2" Width="150" Height="27" Click="Otpusk" />
         <StackPanel Grid.Column="0" Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Content="Загрузить список" FontSize="14"  Width="150" Height="27" Margin="5" Click="Load_List"/>
-            <Button Content="Сохранить список" FontSize="14" Width="150" Height="27"  Margin="5" Click="Save_List"/>
+            <Button Content="Сохранить список" FontSize="14" Width="150" Height="27"  Margin="5" Click="Save_List" />
         </StackPanel>
-        <Button Content="Создать отчет" FontSize="14" Grid.Column="0" Grid.Row="4" Width="150" Height="27"/>
+
+        <GroupBox Header="Количество отчетных месяцев" Grid.Column="0" Grid.Row="4" Margin="15,5,15,5" Background="#3F3F3F">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <RadioButton Content="6 мес." Name="RB_6" Margin="0,0,30,0" IsChecked="True" Foreground="#fff"/>
+                <RadioButton Content="9 мес." Name="RB_9" Margin="0,0,30,0" Foreground="#fff"/>
+                <RadioButton Content="12 мес." Name="RB_12" Foreground="#fff"/>
+            </StackPanel>
+        </GroupBox>
+
+        <Button Content="Создать отчет" FontSize="14" Grid.Column="0" Grid.Row="5" Width="150" Height="27" Click="Button_Click"/>
     </Grid>
 </Window>

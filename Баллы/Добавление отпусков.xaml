@@ -5,7 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:extToolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="Добавление_отпусков" Height="450" Width="700">
+        Title="Добавление_отпусков" Height="450" Width="700"
+        ResizeMode="NoResize" WindowStartupLocation="CenterOwner"
+        Background="#2F2F2F" Foreground="#fafafa">
+
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#828282"/>
+            <Setter Property="Foreground" Value="#fafafa"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#a1a1e1"/>
+                    <Setter Property="Foreground" Value="#e8e8e8"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -21,7 +46,7 @@
 
         <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="30,0,0,0" >
             <TextBlock Text="Причина отсутствия" VerticalAlignment="Center" FontSize="15"/>
-            <ComboBox  Width="350" Height="25" 
+            <ComboBox  Width="350" Height="25" Name ="CB_Why" 
                   HorizontalAlignment="Left" Margin="30,0,0,0">
                 <ComboBoxItem Content="б/л"/>
                 <ComboBoxItem Content="Отпуск"/>
@@ -33,14 +58,15 @@
 
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="30,0,0,0">
             <TextBlock Text="С (числа)" VerticalAlignment="Center" FontSize="15"/>
-            <TextBox x:Name="TB_Start" MaxLines="1" MaxLength="5" Text="01.01" Foreground="Gray" FontSize="14"
-                     Width="75" Height="27" VerticalAlignment="Center" Margin="15,0,0,0" TextChanged="TB_TextInput" PreviewTextInput="TB_PreviewTextInput"/>
+            <TextBox Background="#616161" x:Name="TB_Start" MaxLines="1" MaxLength="5" Text="01.01" Foreground="DarkKhaki" FontSize="14"
+                     Width="75" Height="26" VerticalAlignment="Center" Margin="15,0,0,0" TextChanged="TB_TextInput" PreviewTextInput="TB_PreviewTextInput"/>
 
 
             <TextBlock Text="До (числа)" VerticalAlignment="Center" FontSize="15" Margin="40,0,0,0"/>
-            <TextBox x:Name="TB_Finish" MaxLines="1" MaxLength="5" Text="01.01" Foreground="Gray" FontSize="14"
-                      Width="75" Height="27" VerticalAlignment="Center" Margin="15,0,0,0" PreviewTextInput="TB_PreviewTextInput"/>
-            
+            <TextBox Background="#616161" x:Name="TB_Finish" MaxLines="1" MaxLength="5" Text="01.01" Foreground="DarkKhaki" FontSize="14"
+                      Width="75" Height="26" VerticalAlignment="Center" Margin="15,0,0,0" TextChanged="TB_TextInput" PreviewTextInput="TB_PreviewTextInput"/>
+
+            <CheckBox Content="До конца года" FontSize="15" Name="chk_box" Margin="30,0,0,0" VerticalAlignment="Center" Foreground="#fafafa"/>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -49,11 +75,11 @@
         </StackPanel>
 
         <ListBox Name="LB_Otsyt" Grid.Row="3" Grid.ColumnSpan="2" Margin="30,5,30,5"
-                 ItemsSource="{Binding Otpuski}">
+                 ItemsSource="{Binding Otpuski}"  Background="#3F3F43" Foreground="#fff">
             
         </ListBox>
 
-        <Button  Grid.Column="1" Grid.Row="4" Content="Сохранить" 
+        <Button  Grid.Column="1" Grid.Row="4" Content="Назад" Click="Btn_Back"
                 Width="150" Height="30" FontSize="15" HorizontalAlignment="Right" Margin="0,0,30,0"/>
     </Grid>
 </Window>

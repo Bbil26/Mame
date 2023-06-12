@@ -1,17 +1,13 @@
 ﻿using Excel = Microsoft.Office.Interop.Excel;
 using System;
-using System.Collections.Generic;
-using System.IO.Packaging;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Office.Interop.Excel;
+using Логика;
+using System.Collections.ObjectModel;
 
 namespace otchet
 {
     public class Create
     {
-        public Create()
+        public Create(ObservableCollection<TeloPeople> listPeoples, int countOtchet)
         {
             Excel.Application app = new Excel.Application
             {
@@ -82,13 +78,133 @@ namespace otchet
             //расширение ячеек
             sheet.Rows[1].RowHeight = 17;
             sheet.Rows[2].RowHeight = 80;
+            sheet.Columns[17].ColumnWidth = 7;
+            sheet.Columns[19].ColumnWidth = 19;
+            sheet.Columns[1].ColumnWidth = 3;
+            sheet.Columns[2].ColumnWidth = 10;
+            sheet.Columns[3].ColumnWidth = 12;
+            for (int i = 5; i <= 16; i++)
+                sheet.Columns[i].ColumnWidth = 5;
 
-            app.Application.ActiveWorkbook.SaveAs(@"C:\Users\Bbil\Desktop\мама\прога\Баллы\Баллы\bin\Debug\Отчет.xlsx", Type.Missing,
-              Type.Missing, Type.Missing, Type.Missing, Type.Missing, Excel.XlSaveAsAccessMode.xlNoChange,
-              Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+            int count = listPeoples.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                sheet.Cells[i+3, 1].Value = i + 1;
+            }
+
+            int xTemp = 3;
+            string lineOtpusk = "";
+            double sumScore;
+            
+            if (countOtchet == 6)
+            {
+                foreach (var item in listPeoples)
+                {
+                    foreach (var i in item._Otpusk)
+                        lineOtpusk += i + "\t";
+
+                    sumScore = 50 * 6 - (item._Jan + item._Feb + item._Mar + item._Apr +
+                        item._May + item._June);
+
+                    sheet.Cells[xTemp, 2] = item._Name;
+                    sheet.Cells[xTemp, 3] = item._Job;
+                    sheet.Cells[xTemp, 4] = item._Oklad;
+                    sheet.Cells[xTemp, 5].Value = string.Format("{0:F2}", 50 - item._Jan);
+                    sheet.Cells[xTemp, 6].Value = string.Format("{0:F2}", 50 - item._Feb);
+                    sheet.Cells[xTemp, 7].Value = string.Format("{0:F2}", 50 - item._Mar);
+                    sheet.Cells[xTemp, 8].Value = string.Format("{0:F2}", 50 - item._Apr);
+                    sheet.Cells[xTemp, 9].Value = string.Format("{0:F2}", 50 - item._May);
+                    sheet.Cells[xTemp, 10].Value = string.Format("{0:F2}", 50 - item._June);
+
+                    sheet.Cells[xTemp, 17] = string.Format("{0:F2}", sumScore);
+                    sheet.Cells[xTemp, 19] = lineOtpusk;
+                    xTemp++;
+                }
+            }
+            
+            else if(countOtchet == 9 )
+            {
+                foreach (var item in listPeoples)
+                {
+                    foreach (var i in item._Otpusk)
+                        lineOtpusk += i + "\t";
+
+                    sumScore = 50 * 9 - (item._Jan + item._Feb + item._Mar + item._Apr +
+                        item._May + item._June + item._July + item._Aug +
+                        item._Sep);
+
+                    sheet.Cells[xTemp, 2] = item._Name;
+                    sheet.Cells[xTemp, 3] = item._Job;
+                    sheet.Cells[xTemp, 4] = item._Oklad;
+                    sheet.Cells[xTemp, 5].Value = string.Format("{0:F2}", 50 - item._Jan);
+                    sheet.Cells[xTemp, 6].Value = string.Format("{0:F2}", 50 - item._Feb);
+                    sheet.Cells[xTemp, 7].Value = string.Format("{0:F2}", 50 - item._Mar);
+                    sheet.Cells[xTemp, 8].Value = string.Format("{0:F2}", 50 - item._Apr);
+                    sheet.Cells[xTemp, 9].Value = string.Format("{0:F2}", 50 - item._May);
+                    sheet.Cells[xTemp, 10].Value = string.Format("{0:F2}", 50 - item._June);
+                    sheet.Cells[xTemp, 11].Value = string.Format("{0:F2}", 50 - item._July);
+                    sheet.Cells[xTemp, 12].Value = string.Format("{0:F2}", 50 - item._Aug);
+                    sheet.Cells[xTemp, 13].Value = string.Format("{0:F2}", 50 - item._Sep);
+                    sheet.Cells[xTemp, 17] = string.Format("{0:F2}", sumScore);
+                    sheet.Cells[xTemp, 19] = lineOtpusk;
+                    xTemp++;
+                }
+            }
+            
+            else
+            {
+                foreach (var item in listPeoples)
+                {
+                    foreach (var i in item._Otpusk)
+                        lineOtpusk += i + "\t";
+
+                    sumScore = 50 * 12 - (item._Jan + item._Feb + item._Mar + item._Apr +
+                        item._May + item._June + item._July + item._Aug +
+                        item._Sep + item._Okt + item._Nov + item._Dec);
+
+                    sheet.Cells[xTemp, 2] = item._Name;
+                    sheet.Cells[xTemp, 3] = item._Job;
+                    sheet.Cells[xTemp, 4] = item._Oklad;
+                    sheet.Cells[xTemp, 5].Value = string.Format("{0:F2}", 50 - item._Jan);
+                    sheet.Cells[xTemp, 6].Value = string.Format("{0:F2}", 50 - item._Feb);
+                    sheet.Cells[xTemp, 7].Value = string.Format("{0:F2}", 50 - item._Mar);
+                    sheet.Cells[xTemp, 8].Value = string.Format("{0:F2}", 50 - item._Apr);
+                    sheet.Cells[xTemp, 9].Value = string.Format("{0:F2}", 50 - item._May);
+                    sheet.Cells[xTemp, 10].Value = string.Format("{0:F2}", 50 - item._June);
+                    sheet.Cells[xTemp, 11].Value = string.Format("{0:F2}", 50 - item._July);
+                    sheet.Cells[xTemp, 12].Value = string.Format("{0:F2}", 50 - item._Aug);
+                    sheet.Cells[xTemp, 13].Value = string.Format("{0:F2}", 50 - item._Sep);
+                    sheet.Cells[xTemp, 14].Value = string.Format("{0:F2}", 50 - item._Okt);
+                    sheet.Cells[xTemp, 15].Value = string.Format("{0:F2}", 50 - item._Nov);
+                    sheet.Cells[xTemp, 16].Value = string.Format("{0:F2}", 50 - item._Dec);
+                    sheet.Cells[xTemp, 17] = string.Format("{0:F2}", sumScore);
+                    sheet.Cells[xTemp, 19] = lineOtpusk;
+                    xTemp++;
+                }
+            }
+            
+            
+            if(count> 0)
+            {
+                Excel.Range bodyRange = sheet.get_Range("A3", $"S{count + 2}");
+                Excel.Range subBodyRange = sheet.get_Range("C3", $"C{count + 2}");
+                Excel.Range descriptionRange = sheet.get_Range("S3", $"S{count + 2}");
+                bodyRange.Font.Size = 11;
+                subBodyRange.Font.Size = 10;
+                descriptionRange.Font.Size = 10;
+                bodyRange.Font.Name = "Times New Roman";
+                bodyRange.WrapText = true;
+                bodyRange.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                bodyRange.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
+                headRange.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+                headRange.Borders.Weight = Excel.XlBorderWeight.xlThin;
+                bodyRange.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+                bodyRange.Borders.Weight = Excel.XlBorderWeight.xlThin;
+            } 
+
+
         }
-        
-        
     }
    
 }

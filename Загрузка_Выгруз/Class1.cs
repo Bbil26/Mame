@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Win32;
-using System.Runtime.InteropServices;
 using System.Collections.ObjectModel;
 
 namespace Загрузка__Выгруз
@@ -51,7 +45,12 @@ namespace Загрузка__Выгруз
                 StreamReader sr = new StreamReader(dlg.FileName);
                 while ((line = sr.ReadLine()) != null)
                 {
-                    String name = "", job = "", oklad = "";
+                    ObservableCollection<String> otpusk = new ObservableCollection<string>();
+                    String name = "", job = "", oklad = "", temp = "";
+                    double jan = 0, feb = 0, mar = 0, apr = 0, may = 0,
+                        june = 0, july = 0, aug = 0, sep = 0, okt = 0,
+                        nov = 0, dec = 0;
+
                     foreach(string i in line.Split(';'))
                     {
                         subline = i.Split('=');
@@ -61,14 +60,52 @@ namespace Загрузка__Выгруз
                             job = subline[1].Trim('"');
                         else if (subline[0] == "Oklad")
                             oklad = subline[1].Trim('"');
+                        else if (subline[0] == "Jan")
+                            double.TryParse(subline[1].Trim('"'), out jan);
+                        else if (subline[0] == "Feb")
+                            double.TryParse(subline[1].Trim('"'), out feb);
+                        else if (subline[0] == "Mar")
+                            double.TryParse(subline[1].Trim('"'), out mar);
+                        else if (subline[0] == "Apr")
+                            double.TryParse(subline[1].Trim('"'), out apr);
+                        else if (subline[0] == "May")
+                            double.TryParse(subline[1].Trim('"'), out may);
+                        else if (subline[0] == "June")
+                            double.TryParse(subline[1].Trim('"'), out june);
+                        else if (subline[0] == "July")
+                            double.TryParse(subline[1].Trim('"'), out july);
+                        else if (subline[0] == "Aug")
+                            double.TryParse(subline[1].Trim('"'), out aug);
+                        else if (subline[0] == "Sep")
+                            double.TryParse(subline[1].Trim('"'), out sep);
+                        else if (subline[0] == "Okt")
+                            double.TryParse(subline[1].Trim('"'), out okt);
+                        else if (subline[0] == "Nov")
+                            double.TryParse(subline[1].Trim('"'), out nov);
+                        else if (subline[0] == "Dec")
+                            double.TryParse(subline[1].Trim('"'), out dec);
+                        else if (subline[0] == "Otpusk")
+                            temp = subline[1].Trim('"');
                     }
                     
+                    foreach(var i in temp.Split('\t'))
+                        otpusk.Add(i);
+                    
+                    otpusk.RemoveAt(otpusk.Count - 1);
+
                     data.Add(new People()
                     {
                         _Namep = name,
                         _Jobp= job,
-                        _Okladp = oklad
-                    });
+                        _Okladp = oklad,
+                        Janp = 50 - jan,     Julyp = 50 - july,
+                        Febp = 50 - feb,     Augp = 50 - aug,
+                        Marp = 50 - mar,     Sepp = 50 - sep,
+                        Aprp = 50 - apr,      Oktp = 50 - okt,
+                        Mayp = 50 - may,     Novp = 50 - nov,
+                        Junep = 50 - june,   Decp = 50 - dec,
+                        _Otpuskp = otpusk,
+                    });;
                 }
                 return data;
             }

@@ -5,9 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Баллы"
         mc:Ignorable="d"
-        Title="Профиль" Height="320" Width="600" KeyDown="Window_KeyDown">
+        Title="Профиль" Height="320" Width="600" KeyDown="Window_KeyDown"
+        ResizeMode="NoResize" WindowStartupLocation="CenterOwner"
+        Background="#2F2F2F" Foreground="#fafafa">
+
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#828282"/>
+            <Setter Property="Foreground" Value="#fafafa"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#a1a1e1"/>
+                    <Setter Property="Foreground" Value="#e8e8e8"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    
     <StackPanel Margin="30">
-        <GroupBox Header="Данные">
+        <GroupBox Header="Данные" Background="#3F3F3F">
             <Grid HorizontalAlignment="Left">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -23,9 +48,9 @@
                 <TextBlock Margin="10" Grid.Column="0" Grid.Row="1" Text="Должность" FontSize="16"/>
                 <TextBlock Margin="10" Grid.Column="0" Grid.Row="2" Text="Оклад" FontSize="16"/>
 
-                <TextBox x:Name="TB_name" Grid.Column="1" Grid.Row="0" Margin="10" Width="375" />
-                <TextBox x:Name="TB_job" Grid.Column="1" Grid.Row="1" Margin="10" Width="375"/>
-                <TextBox x:Name="TB_oklad" Grid.Column="1" Grid.Row="2" Margin="10" Width="375"/>
+                <TextBox x:Name="TB_name" Grid.Column="1" Grid.Row="0" Margin="10" Width="375" Background="#616161" Foreground="#fafafa"/>
+                <TextBox x:Name="TB_job" Grid.Column="1" Grid.Row="1" Margin="10" Width="375" Background="#616161" Foreground="#fafafa"/>
+                <TextBox x:Name="TB_oklad" Grid.Column="1" Grid.Row="2" Margin="10" Width="375" Background="#616161" Foreground="#fafafa"/>
                 
             </Grid>
         </GroupBox>

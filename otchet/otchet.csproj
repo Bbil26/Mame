@@ -77,5 +77,11 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Логика\Логика.csproj">
+      <Project>{d26af4c1-6dc2-4e60-9dc7-3a2ce848e889}</Project>
+      <Name>Логика</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

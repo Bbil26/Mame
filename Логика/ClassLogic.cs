@@ -6,6 +6,7 @@ using Microsoft.Win32;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
+using System.Text;
 
 namespace Логика
 {
@@ -17,8 +18,6 @@ namespace Логика
         public TeloPeople(People p)
         {
             _people = p;
-            _Otpusk = new ObservableCollection<string>();
-            
         }
 
         public String _Name
@@ -153,7 +152,14 @@ namespace Логика
                 _Namep = n,
                 _Jobp = j,
                 _Okladp = o,
-            }));
+                Janp = 0,  Julyp= 0,
+                Febp= 0,   Augp= 0,
+                Marp= 0,   Sepp= 0,
+                Aprp= 0,   Oktp= 0,
+                Mayp = 0,  Novp= 0,
+                Junep = 0, Decp= 0,
+                _Otpuskp = new ObservableCollection<string>()
+        }));
         }
         public void DeleteItem(TeloPeople tp)
         {
@@ -168,11 +174,18 @@ namespace Логика
 
             if (dlg.ShowDialog() == true)
             { 
-                StreamWriter sw = new StreamWriter(dlg.FileName);
+                StreamWriter sw = new StreamWriter(dlg.FileName, false, Encoding.UTF8);
                 foreach (var p in _telopeople)
                 {
+                    string line = "";
+                    foreach (var t in p._Otpusk)
+                        line = line + t + "\t";
+
                     sw.WriteLine($"Name=\"{p._Name}\";Job=\"{p._Job}\";Oklad=\"{p._Oklad}\";" +
-                        $"");
+                        $"Jan=\"{50 - p._Jan}\";Feb=\"{50 - p._Feb}\";Mar=\"{50 - p._Mar}\";Apr=\"{50 - p._Apr}\";" +
+                        $"May=\"{50 - p._May}\";June=\"{50 - p._June}\";July=\"{50 - p._July}\";Aug=\"{50 - p._Aug}\";" +
+                        $"Sep=\"{50 - p._Sep}\";Okt=\"{50 - p._Okt}\";Nov=\"{50 - p._Nov}\";Dec=\"{50 - p._Dec}\";" +
+                        $"Otpusk=\"{line}\"");
                 }
                 sw.Close();
             }
