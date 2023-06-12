@@ -30,6 +30,8 @@ namespace Баллы
             {
                 Добавление_отпусков dlg = new Добавление_отпусков();
                 dlg.ShowDialog();
+
+                listPeoples.AutoSave();
             }
         }
 
@@ -45,6 +47,8 @@ namespace Баллы
                 job = Профиль.j;
                 oklad = Профиль.o;
                 listPeoples.AddItem(name, job, oklad);
+
+                listPeoples.AutoSave();
             }
         }
 
@@ -65,6 +69,8 @@ namespace Баллы
                     ((TeloPeople)ListP.SelectedItem)._Job = Профиль.j;
                     ((TeloPeople)ListP.SelectedItem)._Oklad = Профиль.o;
                     ((TeloPeople)ListP.SelectedItem).VisualList = Профиль.n;
+
+                    listPeoples.AutoSave();
                 }
                 flagChangeProfile = 0;
             }
@@ -76,7 +82,11 @@ namespace Баллы
                 if (
                     MessageBox.Show("Вы действительно хотетите удалить запись?", "Внимание!",
                     MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.OK)
+                {
+                    listPeoples.AutoSave(); // Сохранение до удаления
                     listPeoples.DeleteItem((TeloPeople)ListP.SelectedItem);
+                    listPeoples.AutoSave(); // Сохранения после удаления
+                }
         }
 
         private void Load_List(object sender, RoutedEventArgs e)
