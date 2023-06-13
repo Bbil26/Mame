@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -142,7 +143,7 @@ namespace Баллы
                 int sMonth, fMonth, sDay, fDay, monthDays = 0, temp;
                 int.TryParse
                     (
-                        ((string)LB_Otsyt.SelectedItem).Split('.')[0].Split(' ')[2], out sDay
+                        ((string)LB_Otsyt.SelectedItem).Split('.')[0].Split(' ').Last(), out sDay
                     );
 
                 int.TryParse
