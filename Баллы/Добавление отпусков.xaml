@@ -52,8 +52,8 @@
                 <ComboBoxItem Content="б/л"/>
                 <ComboBoxItem Content="Отпуск"/>
                 <ComboBoxItem Content="Сдача крови"/>
-                <ComboBoxItem Content="Отп. за кр."/>
-                <ComboBoxItem Content="Отп. со смертью род."/>
+                <ComboBoxItem Content="Отп за кр"/>
+                <ComboBoxItem Content="Отп со смертью род"/>
             </ComboBox>
         </StackPanel>
 
