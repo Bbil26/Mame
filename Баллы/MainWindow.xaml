@@ -62,6 +62,7 @@
 
         <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Margin="10"
                     VerticalAlignment="Center" HorizontalAlignment="Right">
+            <Button Content="Праздники" Width="120" Height="27" FontSize="14" Margin="0,0,30,0" Click="Button_Click_1"/>
             <TextBlock Text="Год: " FontSize="15"/>
             <TextBox x:Name="TB_Year" FontSize="14" Height="25" VerticalAlignment="Center" Width="75" 
                      MaxLines="1" MaxLength="4" TextChanged="TB_Year_TextInput" Background="#616161"/>

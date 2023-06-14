@@ -6,7 +6,7 @@
         xmlns:extToolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="Добавление_отпусков" Height="450" Width="700"
-        ResizeMode="NoResize" WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         Background="#2F2F2F" Foreground="#fafafa"
         Icon="icon.ico">
 
@@ -54,6 +54,8 @@
                 <ComboBoxItem Content="Сдача крови"/>
                 <ComboBoxItem Content="Отп за кр"/>
                 <ComboBoxItem Content="Отп со смертью род"/>
+                <ComboBoxItem Content="Перевод"/>
+                <ComboBoxItem Content="Прием"/>
             </ComboBox>
         </StackPanel>
 
@@ -76,9 +78,8 @@
         </StackPanel>
 
         <ListBox Name="LB_Otsyt" Grid.Row="3" Grid.ColumnSpan="2" Margin="30,5,30,5"
-                 ItemsSource="{Binding Otpuski}"  Background="#3F3F43" Foreground="#fff">
-            
-        </ListBox>
+                 ItemsSource="{Binding Otpuski}"  Background="#3F3F43" Foreground="#fff"/>
+
 
         <Button  Grid.Column="1" Grid.Row="4" Content="Назад" Click="Btn_Back"
                 Width="150" Height="30" FontSize="15" HorizontalAlignment="Right" Margin="0,0,30,0"/>

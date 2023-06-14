@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Баллы"
         mc:Ignorable="d"
         Title="Профиль" Height="320" Width="600" KeyDown="Window_KeyDown"
-        ResizeMode="NoResize" WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen"
         Background="#2F2F2F" Foreground="#fafafa"
         Icon="icon.ico">
 

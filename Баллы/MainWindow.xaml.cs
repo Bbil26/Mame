@@ -1,5 +1,8 @@
 ﻿using otchet;
 using System;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -13,7 +16,7 @@ namespace Баллы
     /// </summary>
     public partial class MainWindow : Window
     {
-        ListPeoples listPeoples;
+        static public ListPeoples listPeoples;
         int RB_Detector;
         public MainWindow()
         {
@@ -22,8 +25,10 @@ namespace Баллы
             listPeoples = new ListPeoples(1);
             ListP.DataContext = listPeoples;
             TB_Year.Text = DateTime.Now.Year.ToString();
+            holidays = listPeoples._holidays;
         }
 
+        static public ObservableCollection<Holidays> holidays;
         private void Otpusk(object sender, RoutedEventArgs e)
         {
             if (ListP.SelectedIndex != -1)
@@ -101,12 +106,14 @@ namespace Баллы
                 {
                     listPeoples = new ListPeoples();
                     ListP.DataContext = listPeoples;
+                    holidays = listPeoples._holidays;
                 }       
             }
             else
             {
                 listPeoples = new ListPeoples();
                 ListP.DataContext = listPeoples;
+                holidays = listPeoples._holidays;
             }
 
         }
@@ -130,11 +137,9 @@ namespace Баллы
                 SolidColorBrush brush = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#fafafa"));
                 TB_Year.Foreground = brush;
             }
-
             else
                 TB_Year.Foreground = Brushes.Red;
         }
-
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -149,5 +154,22 @@ namespace Баллы
             catch { }
         }
 
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            Праздники holi = new Праздники();
+            holi.ShowDialog();
+
+                string pathToAutoSave = Environment.CurrentDirectory + $"\\СохраненныеПраздники\\ПеременныеПраздники.csv";
+
+                if (!Directory.Exists(Environment.CurrentDirectory + $"\\СохраненныеПраздники"))
+                    Directory.CreateDirectory(Environment.CurrentDirectory + $"\\СохраненныеПраздники");
+
+                StreamWriter sw = new StreamWriter(pathToAutoSave, false, Encoding.UTF8);
+                
+            foreach (var holiday in holidays)
+                if (holiday.isDefault == false)
+                    sw.Write($"{holiday.day}.{holiday.month};");
+                sw.Close();
+        }
     }
 }
