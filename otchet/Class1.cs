@@ -95,7 +95,7 @@ namespace otchet
 
             int xTemp = 3;
             string lineOtpusk;
-            double sumScore;
+            double sumScore = 0;
 
             foreach (var item in listPeoples)
             {
@@ -127,9 +127,13 @@ namespace otchet
                 xTemp = 3;
                 foreach (var item in listPeoples)
                 {
+                    sumScore = 50 * 9 - (item._Jan + item._Feb + item._Mar + item._Apr +
+                    item._May + item._June + item._July + item._Aug + item._Sep);
+
                     sheet.Cells[xTemp, 11].Value = string.Format("{0:F2}", 50 - item._July);
                     sheet.Cells[xTemp, 12].Value = string.Format("{0:F2}", 50 - item._Aug);
                     sheet.Cells[xTemp, 13].Value = string.Format("{0:F2}", 50 - item._Sep);
+                    sheet.Cells[xTemp, 17] = string.Format("{0:F2}", sumScore);
                     xTemp++;
                 }
             }
@@ -139,12 +143,16 @@ namespace otchet
                 xTemp = 3;
                 foreach (var item in listPeoples)
                 {
+                    sumScore = 50 * 12 - (item._Jan + item._Feb + item._Mar + item._Apr +
+                    item._May + item._June + item._July + item._Aug + item._Sep + item._Okt + item._Nov + item._Dec);
+
                     sheet.Cells[xTemp, 11].Value = string.Format("{0:F2}", 50 - item._July);
                     sheet.Cells[xTemp, 12].Value = string.Format("{0:F2}", 50 - item._Aug);
                     sheet.Cells[xTemp, 13].Value = string.Format("{0:F2}", 50 - item._Sep);
                     sheet.Cells[xTemp, 14].Value = string.Format("{0:F2}", 50 - item._Okt);
                     sheet.Cells[xTemp, 15].Value = string.Format("{0:F2}", 50 - item._Nov);
                     sheet.Cells[xTemp, 16].Value = string.Format("{0:F2}", 50 - item._Dec);
+                    sheet.Cells[xTemp, 17] = string.Format("{0:F2}", sumScore);
                     xTemp++;
                 }
             }

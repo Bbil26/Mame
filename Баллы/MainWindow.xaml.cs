@@ -167,7 +167,6 @@ namespace Баллы
                 StreamWriter sw = new StreamWriter(pathToAutoSave, false, Encoding.UTF8);
                 
             foreach (var holiday in holidays)
-                if (holiday.isDefault == false)
                     sw.Write($"{holiday.day}.{holiday.month};");
                 sw.Close();
         }

@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -117,29 +118,53 @@ namespace Баллы
                     switch (i)
                     {
                         case 1:
-                            MainWindow.curChoice._Jan = 50; break;
+                            if (MainWindow.curChoice._Jan == 0)
+                                MainWindow.curChoice._Jan = 50; 
+                            break;
                         case 2:
-                            MainWindow.curChoice._Feb = 50; break;
+                            if (MainWindow.curChoice._Feb == 0)
+                            MainWindow.curChoice._Feb = 50; 
+                            break;
                         case 3:
-                            MainWindow.curChoice._Mar = 50; break;
+                            if (MainWindow.curChoice._Mar == 0)
+                                MainWindow.curChoice._Mar = 50; 
+                            break;
                         case 4:
-                            MainWindow.curChoice._Apr = 50; break;
+                            if (MainWindow.curChoice._Apr == 0)
+                                MainWindow.curChoice._Apr = 50; 
+                            break;
                         case 5:
-                            MainWindow.curChoice._May = 50; break;
+                            if (MainWindow.curChoice._May == 0)
+                                MainWindow.curChoice._May = 50; 
+                            break;
                         case 6:
-                            MainWindow.curChoice._June = 50; break;
+                            if (MainWindow.curChoice._June == 0)
+                                MainWindow.curChoice._June = 50; 
+                            break;
                         case 7:
-                            MainWindow.curChoice._July = 50; break;
+                            if (MainWindow.curChoice._July == 0)
+                                MainWindow.curChoice._July = 50; 
+                            break;
                         case 8:
-                            MainWindow.curChoice._Aug = 50; break;
+                            if (MainWindow.curChoice._Aug == 0)
+                                MainWindow.curChoice._Aug = 50; 
+                            break;
                         case 9:
-                            MainWindow.curChoice._Sep = 50; break;
+                            if (MainWindow.curChoice._Sep == 0)
+                                MainWindow.curChoice._Sep = 50; 
+                            break;
                         case 10:
-                            MainWindow.curChoice._Okt = 50; break;
+                            if (MainWindow.curChoice._Okt == 0)
+                                MainWindow.curChoice._Okt = 50; 
+                            break;
                         case 11:
-                            MainWindow.curChoice._Nov = 50; break;
+                            if (MainWindow.curChoice._Nov == 0)
+                                MainWindow.curChoice._Nov = 50; 
+                            break;
                         case 12:
-                            MainWindow.curChoice._Dec = 50; break;
+                            if (MainWindow.curChoice._Dec == 0)
+                                MainWindow.curChoice._Dec = 50; 
+                            break;
                     }
 
                 }
@@ -147,23 +172,35 @@ namespace Баллы
 
             if ((CB_Why.Text != "" && TB_Start.Foreground.Equals(Brushes.White) &&
                 TB_Finish.Foreground.Equals(Brushes.White)) || 
-                (CB_Why.Text == "Прием" && TB_Start.Foreground.Equals(Brushes.White)))
+                (CB_Why.Text == "Прием" && TB_Start.Foreground.Equals(Brushes.White)) ||
+                (CB_Why.Text == "Сдача крови" && TB_Start.Foreground.Equals(Brushes.White)) ||
+                (CB_Why.Text == "Отп за кр" && TB_Start.Foreground.Equals(Brushes.White))
+                )
             {
-                int s_day, s_month, f_day, f_month, countDays = 0, temp = 0, monthDays = 0, countHolidays = 0;
+                if (CB_Why.Text == "Прием" || 
+                    CB_Why.Text == "Сдача крови" || 
+                    CB_Why.Text == "Отп за кр") TB_Finish.Text = "01.01";
+                int s_day, s_month, f_day, f_month, countDays = 0, temp = 0, monthDays = 0, countHolidays = 0, tempHoli = 0;
                 int.TryParse(TB_Start.Text.Split('.')[0], out s_day);
                 int.TryParse(TB_Start.Text.Split('.')[1], out s_month);
                 int.TryParse(TB_Finish.Text.Split('.')[0], out f_day);
                 int.TryParse(TB_Finish.Text.Split('.')[1], out f_month);
 
                 if (CB_Why.Text == "Прием") f_month = 12;
-
+                if (CB_Why.Text == "Сдача крови" || CB_Why.Text == "Отп за кр" )
+                {
+                    f_month = s_month;
+                    f_day = s_day;
+                }
+                
                     if (chk_box.IsChecked == true)
                 {
                     f_day = 31;
                     f_month = 12;
                 }
 
-                for (int i = s_month; i <= f_month; i++)
+
+                    for (int i = s_month; i <= f_month; i++)
                 {
 
                     if (i == 1 || i == 3 || i == 5 || i == 7 ||
@@ -191,11 +228,12 @@ namespace Баллы
                     {
                         temp = f_day - s_day + 1;
 
-                        getScore(i, temp, monthDays, 1, 0);
+                        if (CB_Why.Text != "б/л" && CB_Why.Text != "Отсутствие" && CB_Why.Text != "Перевод")
 
                         /////////////////////Праздничные дни/////////////////////////
                         foreach (var item in MainWindow.holidays)
                         {
+                            tempHoli = 0;
                             if (item.month == i)
                                 for (int j = s_day; j <= f_day; j++)
                                     if (j == item.day)
@@ -205,6 +243,7 @@ namespace Баллы
                         }
 
                         /////////////////////////////////////////////////////////////
+                        getScore(i, temp - countHolidays, monthDays, 1, 0);
                         countDays += temp;
                         break;
                     }
@@ -213,60 +252,66 @@ namespace Баллы
                     else if (i == f_month) temp = f_day;
                     else temp = monthDays;
 
-                    getScore(i, temp, monthDays, 1, 0);
-                    
-                    /////////////////////Праздничные дни/////////////////////////
-                    foreach (var item in MainWindow.holidays)
-                    {
-                        if (item.month == i)
-                            if (item.month == s_month)
-                                for (int j = s_day; j <= monthDays; j++)
-                                {
-                                    if (j == item.day)
-                                    {
-                                        countHolidays++;
-                                    }
-                                }
-                            else if (item.month == f_month)
-                            {
-                                for (int j = 1; j <= f_day; j++)
-                                {
-                                    if (j == item.day)
-                                    {
-                                        countHolidays++;
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                for (int j = 1; j <= monthDays; j++)
-                                {
-                                    if (j == item.day)
-                                    {
-                                        countHolidays++;
-                                    }
-                                }
-                            }
-                                    
-                    }
-                    ///////////////////////////////////////////////////////////////////
-                    countDays += temp;
 
-                    if (CB_Why.Text == "Прием") break;
+                    /////////////////////Праздничные дни/////////////////////////
+                    tempHoli = 0;
+                    if (CB_Why.Text != "б/л" && CB_Why.Text != "Отсутствие" && CB_Why.Text != "Перевод")
+                        foreach (var item in MainWindow.holidays)
+                        {
+                            if (item.month == i)
+                                if (item.month == s_month)
+                                    for (int j = s_day; j <= monthDays; j++)
+                                    {
+                                        if (j == item.day)
+                                        {
+                                            tempHoli++;
+                                            countHolidays++;
+                                        }
+                                    }
+                                else if (item.month == f_month)
+                                {
+                                    for (int j = 1; j <= f_day; j++)
+                                    {
+                                        if (j == item.day)
+                                        {
+                                            tempHoli++;
+                                            countHolidays++;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int j = 1; j <= monthDays; j++)
+                                    {
+                                        if (j == item.day)
+                                        {
+                                            tempHoli++;
+                                            countHolidays++;
+                                        }
+                                    }
+                                }
+                        }
+
+                    ///////////////////////////////////////////////////////////////////
+                    if (CB_Why.Text == "Прием")
+                    {
+                        getScore(i, temp, monthDays, 1, 0);
+                        break;
+                    }
+                    else getScore(i, temp - tempHoli, monthDays, 1, 0);
+                    countDays += temp;
 
                 }
                 
 
-                Console.WriteLine(countHolidays);
-
-                if (CB_Why.Text != "б/л")
+                if (CB_Why.Text != "б/л" && CB_Why.Text != "Отсутствие" && CB_Why.Text != "Перевод")
                     countDays -= countHolidays;
                 
                 line = "";
 
                 if (chk_box.IsChecked == true)
                 {
-                    if (CB_Why.Text != "Прием")
+                    if (CB_Why.Text != "Прием" || CB_Why.Text != "Сдача крови" || CB_Why.Text != "Отп за кр")
                         line = $"{CB_Why.Text} с {TB_Start.Text}.{MainWindow.curYear} по" +
                             $" {TB_Finish.Text}.{MainWindow.curYear} - {countDays} дней";
                     else 
@@ -275,14 +320,14 @@ namespace Баллы
                 }
                 else 
                 {
-                    if (CB_Why.Text != "Прием")
+                    if (CB_Why.Text == "Сдача крови" || CB_Why.Text == "Отп за кр") line = $"{CB_Why.Text} {TB_Start.Text}.{MainWindow.curYear} - 1 дн";
+                    else if (CB_Why.Text != "Прием")
                         line = $"{CB_Why.Text} с {TB_Start.Text}.{MainWindow.curYear} по" +
                             $" {TB_Finish.Text}.{MainWindow.curYear} - {countDays} дней";
                     else 
                         line = $"{CB_Why.Text} с {TB_Start.Text}.{MainWindow.curYear}";
                 }
                         
-                    
 
                 MainWindow.curChoice._Otpusk.Add(line);
             }
@@ -292,7 +337,7 @@ namespace Баллы
         {
             if (LB_Otsyt.SelectedIndex != -1)
             {
-                int sMonth, fMonth, sDay, fDay, monthDays = 0, temp;
+                int sMonth, fMonth, sDay, fDay, monthDays = 0, temp, tempHoli = 0;
 
                 ////////////////////////////////Прием//////////////////////////////////////////////////
                 if (((string)LB_Otsyt.SelectedItem).Split(' ')[0] == "Прием")
@@ -425,18 +470,33 @@ namespace Баллы
                             ((string)LB_Otsyt.SelectedItem).Split('.')[1].Split(' ')[0], out sMonth
                         );
 
-                    int.TryParse
+                    fDay = 0; fMonth = 0;
+
+                    if (((string)LB_Otsyt.SelectedItem).Split(' ')[0] != "Сдача" &&
                         (
-                            ((string)LB_Otsyt.SelectedItem).Split('.')[2].Split(' ')[2], out fDay
-                        );
+                        ((string)LB_Otsyt.SelectedItem).Split(' ')[0] != "Отп" && ((string)LB_Otsyt.SelectedItem).Split(' ')[1] != "за")
+                        )
+                    {
+                        int.TryParse
+                            (
+                                ((string)LB_Otsyt.SelectedItem).Split('.')[2].Split(' ')[2], out fDay
+                            );
 
-                    int.TryParse
+                        int.TryParse
+                            (
+                                ((string)LB_Otsyt.SelectedItem).Split('.')[3], out fMonth
+                            );
+                    }
+
+
+                    if (((string)LB_Otsyt.SelectedItem).Split(' ')[0] == "Сдача" || 
                         (
-                            ((string)LB_Otsyt.SelectedItem).Split('.')[3], out fMonth
-                        );
-
-
-
+                        ((string)LB_Otsyt.SelectedItem).Split(' ')[0] == "Отп" && ((string)LB_Otsyt.SelectedItem).Split(' ')[1] == "за") 
+                        )
+                    {
+                        fDay = sDay;
+                        fMonth = sMonth;
+                    }
                     for (int i = sMonth; i <= fMonth; i++)
                     {
                         if (i == 1 || i == 3 || i == 5 || i == 7 ||
@@ -463,10 +523,20 @@ namespace Баллы
                         if (sMonth == fMonth)
                         {
                             temp = fDay - sDay + 1;
-                            if (((string)LB_Otsyt.SelectedItem).Split(' ')[0] == "Перевод")
-                                getScore(i, temp, monthDays, 1, 1);
-                            else
-                                getScore(i, temp, monthDays, 0, 1);
+                            tempHoli = 0;
+                            if (((string)LB_Otsyt.SelectedItem).Split(' ')[0] != "б/л")
+                                foreach (var item in MainWindow.holidays)
+                                {                                
+                                    if (item.month == i)
+                                        for (int j = sDay; j <= fDay; j++)
+                                            if (j == item.day)
+                                            {
+                                                tempHoli++; 
+                                            }
+                                }
+
+
+                            getScore(i, temp-tempHoli, monthDays, 0, 1);
                             break;
                         }
 
@@ -474,10 +544,42 @@ namespace Баллы
                         else if (i == fMonth) temp = fDay;
                         else temp = monthDays;
 
-                        if (((string)LB_Otsyt.SelectedItem).Split(' ')[0] == "Перевод")
-                           getScore(i, temp, monthDays, 1, 1);
-                        else
-                            getScore(i, temp, monthDays, 0, 1);
+                        tempHoli = 0;
+                        if (((string)LB_Otsyt.SelectedItem).Split(' ')[0] != "б/л")
+                            foreach (var item in MainWindow.holidays)
+                            {
+                                if (item.month == i)
+                                    if (item.month == sMonth)
+                                        for (int j = fDay; j <= monthDays; j++)
+                                        {
+                                            if (j == item.day)
+                                            {
+                                                tempHoli++;
+                                            }
+                                        }
+                                    else if (item.month == fMonth)
+                                    {
+                                        for (int j = 1; j <= fDay; j++)
+                                        {
+                                            if (j == item.day)
+                                            {
+                                                tempHoli++;
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int j = 1; j <= monthDays; j++)
+                                        {
+                                            if (j == item.day)
+                                            {
+                                                tempHoli++;
+                                            }
+                                        }
+                                    }
+                            }
+
+                            getScore(i, temp - tempHoli, monthDays, 0, 1);
                     }
                 }
 

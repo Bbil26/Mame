@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Shapes;
@@ -15,8 +16,6 @@ namespace Логика
     {
         public int day { get; set; }
         public int month { get; set; }
-
-        public bool isDefault { get; set; }
         public String VisualHoli
         {
             get { return Visualname(); }
@@ -29,8 +28,6 @@ namespace Логика
             else line += day.ToString() + ".";
             if (month.ToString().Length == 1) line += "0" + month.ToString();
             else line += month.ToString();
-            if (isDefault == true) line += " - Постоянный праздник";
-            else line += " - • Переменный праздник";
             return line;
         }
     }
@@ -156,23 +153,12 @@ namespace Логика
 
         public void AddDefaultHolidays()
         {
-            string[] Hol = { "01.01", "02.01", "03.01", "04.01", "05.01", "06.01", "08.01",
-                "07.01","23.02","08.03", "01.05", "09.05", "12.06", "04.11"};
-            foreach (string str in Hol)
-            {
-                _holidays.Add(new Holidays()
-                {
-                    day = Convert.ToInt32(str.Split('.')[0]),
-                    month = Convert.ToInt32(str.Split('.')[1]),
-                    isDefault = true
-                });
-            }
 
-            string pathToDate = Environment.CurrentDirectory + "\\СохраненныеПраздники";
+            string pathToDate = Environment.CurrentDirectory + "\\СохраненныеПраздники\\ПеременныеПраздники.csv";
 
-            if (Directory.Exists(pathToDate))
+            if (File.Exists(pathToDate))
             {
-                StreamReader srr = new StreamReader(pathToDate + "\\ПеременныеПраздники.csv");
+                StreamReader srr = new StreamReader(pathToDate);
                 string linne;
                 while((linne = srr.ReadLine()) != null)
                 {
@@ -184,15 +170,28 @@ namespace Логика
                             _holidays.Add(new Holidays()
                             {
                                 day = Convert.ToInt32(it.Split('.')[0]),
-                                month = Convert.ToInt32(it.Split('.')[1]),
-                                isDefault = false
+                                month = Convert.ToInt32(it.Split('.')[1])
                             });
                         }
                     }
                 }
                 srr.Close();
             }
-            
+            else
+            {
+                string[] Hol = { "01.01", "02.01", "03.01", "04.01", "05.01", "06.01", "08.01",
+                "07.01","23.02","08.03", "01.05", "09.05", "12.06", "04.11"};
+                foreach (string str in Hol)
+                {
+                    _holidays.Add(new Holidays()
+                    {
+                        day = Convert.ToInt32(str.Split('.')[0]),
+                        month = Convert.ToInt32(str.Split('.')[1]),
+                    });
+                }
+
+            }
+
         }
 
         public ListPeoples()
@@ -203,10 +202,13 @@ namespace Логика
                 foreach (var t in tmp)
                     _telopeople.Add(new TeloPeople(t));
             }
+
+            AddDefaultHolidays();
         }
         public ListPeoples(int flag) 
         {
             AddDefaultHolidays();
+
         }
 
         public ObservableCollection<TeloPeople> VisListPeople

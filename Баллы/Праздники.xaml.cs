@@ -32,7 +32,6 @@ namespace Баллы
             {
                 day = addDay,
                 month = addMonth,
-                isDefault = false
 
             });
         }

@@ -54,6 +54,7 @@
                 <ComboBoxItem Content="Сдача крови"/>
                 <ComboBoxItem Content="Отп за кр"/>
                 <ComboBoxItem Content="Отп со смертью род"/>
+                <ComboBoxItem Content="Отсутствие"/>
                 <ComboBoxItem Content="Перевод"/>
                 <ComboBoxItem Content="Прием"/>
             </ComboBox>
